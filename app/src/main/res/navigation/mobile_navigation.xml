@@ -7,19 +7,26 @@
 
     <fragment
         android:id="@+id/nav_home"
-        android:name="com.example.proyectoexpediente.ui.home.HomeFragment"
-        android:label="@string/menu_home"
-        tools:layout="@layout/fragment_home" />
+        android:name="com.example.proyectoexpediente.ui.home.MenuPrincipalFragment"
+        android:label="Menú Principal"
+        tools:layout="@layout/fragment_menu_principal" />
 
     <fragment
-        android:id="@+id/nav_gallery"
-        android:name="com.example.proyectoexpediente.ui.gallery.GalleryFragment"
-        android:label="@string/menu_gallery"
-        tools:layout="@layout/fragment_gallery" />
+        android:id="@+id/nav_editar_perfil"
+        android:name="com.example.proyectoexpediente.ui.perfil.EditarPerfilFragment"
+        android:label="Editar Perfil"
+        tools:layout="@layout/fragment_editar_perfil" />
 
     <fragment
-        android:id="@+id/nav_slideshow"
-        android:name="com.example.proyectoexpediente.ui.slideshow.SlideshowFragment"
-        android:label="@string/menu_slideshow"
-        tools:layout="@layout/fragment_slideshow" />
+        android:id="@+id/nav_ver_expediente"
+        android:name="com.example.proyectoexpediente.ui.expediente.VerExpedienteFragment"
+        android:label="Ver Expediente"
+        tools:layout="@layout/fragment_ver_expediente" />
+
+    <fragment
+        android:id="@+id/nav_inscribir"
+        android:name="com.example.proyectoexpediente.ui.inscribir.InscribirMateriasFragment"
+        android:label="Inscribir Materias"
+        tools:layout="@layout/fragment_inscribir_materias" />
+
 </navigation>
