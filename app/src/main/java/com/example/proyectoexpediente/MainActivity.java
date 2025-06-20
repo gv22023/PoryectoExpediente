@@ -54,6 +54,12 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
+
+        // Redirección si el usuario es admin
+        String destino = getIntent().getStringExtra("ir_a");
+        if ("inscribir_materias".equals(destino)) {
+            navController.navigate(R.id.nav_inscribir);
+        }
     }
 
     @Override

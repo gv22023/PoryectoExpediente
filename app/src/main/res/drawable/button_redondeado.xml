@@ -1,0 +1,17 @@
+<!-- res/drawable/button_redondeado.xml -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+
+    <!-- Color de fondo del botón -->
+    <solid android:color="@color/colorPrimary" />
+
+    <!-- Bordes redondeados -->
+    <corners android:radius="96dp" />
+
+    <!-- Sombra opcional -->
+    <padding
+        android:left="10dp"
+        android:top="10dp"
+        android:right="10dp"
+        android:bottom="10dp" />
+</shape>
