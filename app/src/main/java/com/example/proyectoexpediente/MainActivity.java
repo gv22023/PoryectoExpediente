@@ -1,6 +1,9 @@
 package com.example.proyectoexpediente;
 
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.Menu;
 
@@ -67,6 +70,27 @@ public class MainActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        if (id == R.id.action_settings) {
+            // log out
+            SharedPreferences prefs = getSharedPreferences("SesionUsuario", MODE_PRIVATE);
+            prefs.edit().clear().apply(); // Limpia sesión
+
+            // redirect to login
+            Intent intent = new Intent(this, LoginActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
+            finish();
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
 
     @Override
     public boolean onSupportNavigateUp() {

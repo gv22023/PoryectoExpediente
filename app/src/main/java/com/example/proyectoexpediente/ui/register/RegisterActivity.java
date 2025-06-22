@@ -28,9 +28,9 @@ public class RegisterActivity extends AppCompatActivity {
         etNombre = findViewById(R.id.etNombre);
         etEmail = findViewById(R.id.etEmail);
         etPassword = findViewById(R.id.etPassword);
+        etConfirmPassword = findViewById(R.id.etConfirmPassword);
         btnCrearCuenta = findViewById(R.id.btnCrearCuenta);
         btnRegresar = findViewById(R.id.btnRegresar);
-        etConfirmPassword = findViewById(R.id.etConfirmPassword);
 
         dbHelper = new UESDatabaseHelper(this);
 
@@ -50,18 +50,16 @@ public class RegisterActivity extends AppCompatActivity {
                 return;
             }
 
-            SQLiteDatabase db = dbHelper.getWritableDatabase();
+            boolean registrado = dbHelper.registrarUsuario(nombre, email, pass, "estandar");
 
-            if (usuarioExiste(db, email)) {
-                Toast.makeText(this, "El correo ya está registrado", Toast.LENGTH_SHORT).show();
-            } else {
-                db.execSQL("INSERT INTO usuarios (nombre, email, contrasena, tipo) VALUES (?, ?, ?, ?)",
-                        new Object[]{nombre, email, pass, "estandar"});
+            if (registrado) {
                 Toast.makeText(this, "Registro exitoso", Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(this, LoginActivity.class));
                 finish();
+            } else {
+                Toast.makeText(this, "No se pudo registrar, revise la información", Toast.LENGTH_SHORT).show();
             }
-        });;
+        });
 
         btnRegresar.setOnClickListener(view -> {
             Intent intent = new Intent(this, LoginActivity.class);
