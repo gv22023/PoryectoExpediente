@@ -6,9 +6,11 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Switch;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 
 import com.example.proyectoexpediente.database.UESDatabaseHelper;
 import com.example.proyectoexpediente.ui.register.RegisterActivity;
@@ -18,18 +20,48 @@ public class LoginActivity extends AppCompatActivity {
     private EditText etEmail, etPassword;
     private Button btnLogin, btnRegister;
     private UESDatabaseHelper dbHelper;
+    private Switch selectModo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        // Aplicar tema antes de cargar la UI
+        SharedPreferences preferences = getSharedPreferences("settings", MODE_PRIVATE);
+        boolean nightMode = preferences.getBoolean("night_mode", false);
+        if (nightMode) {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+        } else {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+        }
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        // Inicializar vistas
         dbHelper = new UESDatabaseHelper(this);
         etEmail = findViewById(R.id.etEmail);
         etPassword = findViewById(R.id.etPassword);
         btnLogin = findViewById(R.id.btnLogin);
         btnRegister = findViewById(R.id.btnRegister);
+        selectModo = findViewById(R.id.selectModo);
 
+        // Establecer estado inicial del switch
+        selectModo.setChecked(nightMode);
+
+        // Escuchar cambios en el switch
+        selectModo.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            SharedPreferences.Editor editor = getSharedPreferences("settings", MODE_PRIVATE).edit();
+            if (isChecked) {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+                editor.putBoolean("night_mode", true);
+            } else {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+                editor.putBoolean("night_mode", false);
+            }
+            editor.apply();
+            recreate(); // Reiniciar la actividad para aplicar el nuevo tema
+        });
+
+        // Lógica del botón Login
         btnLogin.setOnClickListener(view -> {
             String email = etEmail.getText().toString().trim();
             String password = etPassword.getText().toString().trim();
