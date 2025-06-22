@@ -3,12 +3,9 @@ package com.example.proyectoexpediente.ui.perfil;
 import static com.example.proyectoexpediente.utils.Utils.copiarImagenLocal;
 
 import android.app.Activity;
-import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -28,6 +25,8 @@ import androidx.fragment.app.Fragment;
 import com.example.proyectoexpediente.R;
 import com.example.proyectoexpediente.database.UESDatabaseHelper;
 import com.example.proyectoexpediente.utils.Utils;
+
+import java.util.Map;
 
 public class EditarPerfilFragment extends Fragment {
 
@@ -99,25 +98,21 @@ public class EditarPerfilFragment extends Fragment {
     }
 
     private void cargarDatosUsuario() {
-        SQLiteDatabase db = dbHelper.getReadableDatabase();
-        Cursor cursor = db.rawQuery("SELECT nombre, correo, imagen_uri FROM usuarios WHERE correo = ?", new String[]{correoUsuario});
+        Map<String, String> usuario = dbHelper.obtenerUsuario(correoUsuario);
 
-        if (cursor.moveToFirst()) {
-            String nombre = cursor.getString(cursor.getColumnIndexOrThrow("nombre"));
-            String correo = cursor.getString(cursor.getColumnIndexOrThrow("correo"));
-            String imagenUriStr = cursor.getString(cursor.getColumnIndexOrThrow("imagen_uri"));
-
-            etNombre.setText(nombre);
-            etCorreo.setText(correo); // Lo puedes poner deshabilitado si no quieres que lo editen
+        if (!usuario.isEmpty()) {
+            etNombre.setText(usuario.get("nombre"));
+            etCorreo.setText(usuario.get("correo"));
             etCorreo.setEnabled(false);
 
+            String imagenUriStr = usuario.get("imagen_uri");
             if (imagenUriStr != null) {
                 Uri uri = Uri.parse(imagenUriStr);
                 imgPerfil.setImageURI(uri);
             }
         }
-        cursor.close();
     }
+
 
     private final ActivityResultLauncher<Intent> seleccionarImagenLauncher =
         registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {

@@ -82,7 +82,7 @@ public class LoginActivity extends AppCompatActivity {
                 editor.putString("tipo_usuario", tipoUsuario);
                 editor.apply();
 
-                Toast.makeText(this, "Bienvenido " + tipoUsuario, Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Bienvenido", Toast.LENGTH_SHORT).show();
 
                 // Redirigir según tipo de usuario
                 Intent intent = new Intent(this, MainActivity.class);

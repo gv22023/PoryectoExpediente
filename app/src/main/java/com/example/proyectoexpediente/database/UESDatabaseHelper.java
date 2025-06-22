@@ -12,7 +12,9 @@ import androidx.annotation.Nullable;
 import com.example.proyectoexpediente.Materia;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class UESDatabaseHelper extends SQLiteOpenHelper {
 
@@ -148,6 +150,24 @@ public class UESDatabaseHelper extends SQLiteOpenHelper {
         }
         return "estandar";
     }
+
+    public Map<String, String> obtenerUsuario(String correo) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Map<String, String> usuario = new HashMap<>();
+
+        Cursor cursor = db.rawQuery("SELECT nombre, correo, imagen_uri FROM usuarios WHERE correo = ?", new String[]{correo});
+
+        if (cursor.moveToFirst()) {
+            usuario.put("nombre", cursor.getString(cursor.getColumnIndexOrThrow("nombre")));
+            usuario.put("correo", cursor.getString(cursor.getColumnIndexOrThrow("correo")));
+            usuario.put("imagen_uri", cursor.getString(cursor.getColumnIndexOrThrow("imagen_uri")));
+        }
+        cursor.close();
+
+        return usuario;
+    }
+
+
     //Registrar Materia
     public boolean insertarMateria(String nombre, String codigo, int uv) {
         SQLiteDatabase db = this.getWritableDatabase();

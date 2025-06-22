@@ -6,7 +6,9 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Menu;
+import android.widget.TextView;
 
+import com.example.proyectoexpediente.database.UESDatabaseHelper;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
 
@@ -18,6 +20,8 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.proyectoexpediente.databinding.ActivityMainBinding;
+
+import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -32,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         setSupportActionBar(binding.appBarMain.toolbar);
+
         binding.appBarMain.fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -57,6 +62,25 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
+
+        //cargar nombre del usuario
+        SharedPreferences prefs = getSharedPreferences("SesionUsuario", MODE_PRIVATE);
+        TextView tvBienvenida = binding.appBarMain.getRoot().findViewById(R.id.welcome);
+        String correoUsuario = prefs.getString("correo", null);
+
+        if (correoUsuario != null) {
+            UESDatabaseHelper dbHelper = new UESDatabaseHelper(this);
+            Map<String, String> usuario = dbHelper.obtenerUsuario(correoUsuario);
+
+            String nombreUsuario = usuario.get("nombre");
+            if (nombreUsuario != null && !nombreUsuario.isEmpty()) {
+                tvBienvenida.setText("Bienvenido, " + nombreUsuario);
+            } else {
+                tvBienvenida.setText("Bienvenido, usuario");
+            }
+        } else {
+            tvBienvenida.setText("Bienvenido, usuario");
+        }
 
         // Redirección si el usuario es admin
         String destino = getIntent().getStringExtra("ir_a");
