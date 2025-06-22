@@ -7,6 +7,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import androidx.annotation.Nullable;
+
 import com.example.proyectoexpediente.Materia;
 
 import java.util.ArrayList;
@@ -15,7 +17,7 @@ import java.util.List;
 public class UESDatabaseHelper extends SQLiteOpenHelper {
 
     public static final String DATABASE_NAME = "UESExpediente.db";
-    public static final int DATABASE_VERSION = 2; // Aumentado para forzar recreación
+    public static final int DATABASE_VERSION = 3; // Aumentado para forzar recreación
 
     public UESDatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -28,6 +30,7 @@ public class UESDatabaseHelper extends SQLiteOpenHelper {
                 "nombre TEXT, " +
                 "correo TEXT UNIQUE, " +
                 "contrasena TEXT, " +
+                "imagen_uri TEXT, " +
                 "tipo_usuario TEXT)");
 
         db.execSQL("CREATE TABLE materias (" +
@@ -115,6 +118,24 @@ public class UESDatabaseHelper extends SQLiteOpenHelper {
         db.close();
     }
 
+    public boolean actualizarUsuario(String correo, @Nullable String nuevaContrasena, @Nullable String imagenUri) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+
+        if (nuevaContrasena != null && !nuevaContrasena.isEmpty()) {
+            values.put("contrasena", nuevaContrasena);
+        }
+
+        if (imagenUri != null && !imagenUri.isEmpty()) {
+            values.put("imagen_uri", imagenUri);
+        }
+
+        // Si no hay nada que actualizar, no ejecutamos nada
+        if (values.size() == 0) return false;
+
+        int updated = db.update("usuarios", values, "correo = ?", new String[]{correo});
+        return updated > 0;
+    }
 
     // Obtener tipo de usuario (admin o estandar)
     public String obtenerTipoUsuario(String correo) {
