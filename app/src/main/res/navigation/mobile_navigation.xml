@@ -27,6 +27,6 @@
         android:id="@+id/nav_inscribir"
         android:name="com.example.proyectoexpediente.ui.inscribir.InscribirMateriasFragment"
         android:label="Inscribir Materias"
-        tools:layout="@layout/fragment_inscribir_materias" />
+        tools:layout="@layout/fragment_ver_materias" />
 
 </navigation>

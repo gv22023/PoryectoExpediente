@@ -1,10 +1,16 @@
 package com.example.proyectoexpediente.database;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
+
+import com.example.proyectoexpediente.Materia;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class UESDatabaseHelper extends SQLiteOpenHelper {
 
@@ -27,7 +33,8 @@ public class UESDatabaseHelper extends SQLiteOpenHelper {
         db.execSQL("CREATE TABLE materias (" +
                 "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 "nombre TEXT, " +
-                "descripcion TEXT)");
+                "codigo TEXT UNIQUE,"+
+                "uv INTEGER)");
 
         db.execSQL("CREATE TABLE inscripciones (" +
                 "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
@@ -119,5 +126,39 @@ public class UESDatabaseHelper extends SQLiteOpenHelper {
             return tipo;
         }
         return "estandar";
+    }
+    //Registrar Materia
+    public boolean insertarMateria(String nombre, String codigo, int uv) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("nombre", nombre);
+        values.put("codigo", codigo);
+        values.put("uv", uv);
+
+        long result = db.insert("materias", null, values);
+        return result != -1;
+    }
+
+    public List<Materia> obtenerMaterias() {
+        List<Materia> listaMaterias = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor cursor = db.rawQuery("SELECT * FROM materias", null);
+
+        if (cursor.moveToFirst()) {
+            do {
+                String nombre = cursor.getString(cursor.getColumnIndexOrThrow("nombre"));
+                String codigo = cursor.getString(cursor.getColumnIndexOrThrow("codigo"));
+                int uv = cursor.getInt(cursor.getColumnIndexOrThrow("uv"));
+
+                Materia materia = new Materia(nombre, codigo, uv);
+                listaMaterias.add(materia);
+            } while (cursor.moveToNext());
+        }
+
+        cursor.close();
+        db.close();
+
+        return listaMaterias;
     }
 }
