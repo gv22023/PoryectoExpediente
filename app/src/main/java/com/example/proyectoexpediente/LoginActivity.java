@@ -13,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 
 import com.example.proyectoexpediente.database.DataService;
+import com.example.proyectoexpediente.ui.materia.VerMateriasActivity;
 import com.example.proyectoexpediente.ui.register.RegisterActivity;
 
 public class LoginActivity extends AppCompatActivity {
@@ -33,7 +34,6 @@ public class LoginActivity extends AppCompatActivity {
             finish(); // Cierra LoginActivity
             return;
         }
-
 
         // Aplicar tema antes de cargar la UI
         SharedPreferences preferences = getSharedPreferences("settings", MODE_PRIVATE);
@@ -83,7 +83,6 @@ public class LoginActivity extends AppCompatActivity {
             }
 
             if (dbHelper.validarUsuario(email, password)) {
-
                 String tipoUsuario = dbHelper.obtenerTipoUsuario(email);
 
                 // Guardar datos en SharedPreferences
@@ -105,14 +104,13 @@ public class LoginActivity extends AppCompatActivity {
 
                 startActivity(intent);
                 finish();
-
             } else {
                 Toast.makeText(this, "Credenciales incorrectas", Toast.LENGTH_SHORT).show();
             }
         });
 
         btnRegister.setOnClickListener(view -> {
-            startActivity(new Intent(this, VerMateriasActivity.class));
+            startActivity(new Intent(this, RegisterActivity.class));
         });
     }
 }
