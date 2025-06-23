@@ -24,6 +24,17 @@ public class LoginActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        // Verificar si ya hay sesión activa
+        SharedPreferences session = getSharedPreferences("SesionUsuario", MODE_PRIVATE);
+        if (session.contains("correo")) {
+            // Ya hay sesión, ir directo a MainActivity
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
+            finish(); // Cierra LoginActivity
+            return;
+        }
+
+
         // Aplicar tema antes de cargar la UI
         SharedPreferences preferences = getSharedPreferences("settings", MODE_PRIVATE);
         boolean nightMode = preferences.getBoolean("night_mode", false);
