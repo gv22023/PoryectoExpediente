@@ -9,11 +9,11 @@
             android:icon="@drawable/ic_menu_home"
             android:title="Menú Principal" />
         <item
-            android:id="@+id/nav_gallery"
+            android:id="@+id/nav_perfil"
             android:icon="@drawable/ic_menu_edit"
             android:title="Editar Perfil" />
         <item
-            android:id="@+id/nav_slideshow"
+            android:id="@+id/nav_expediente"
             android:icon="@drawable/ic_menu_info"
             android:title="Ver Expediente" />
         <item
