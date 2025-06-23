@@ -1,39 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="16dp">
+    android:orientation="vertical"
+    android:padding="12dp"
+    android:background="@android:color/white"
+    android:layout_marginBottom="8dp"
+    android:elevation="2dp">
 
     <TextView
         android:id="@+id/tvNombreMateria"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Nombre"
-        android:textStyle="bold"
-        android:textSize="16sp"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        android:text="Nombre" />
 
     <TextView
         android:id="@+id/tvCodigoMateria"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Código"
-        app:layout_constraintTop_toBottomOf="@id/tvNombreMateria"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        android:text="Código" />
 
     <TextView
-        android:id="@+id/tvUVMateria"
-        android:layout_width="0dp"
+        android:id="@+id/tvUnidadesValorativas"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="UV"
-        app:layout_constraintTop_toBottomOf="@id/tvCodigoMateria"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"/>
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+        android:text="UV" />
+</LinearLayout>

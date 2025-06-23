@@ -1,8 +1,9 @@
 package com.example.proyectoexpediente;
+
 public class Materia {
-    private String nombre;
-    private String codigo;
-    private int unidadesValorativas;
+    private final String nombre;
+    private final String codigo;
+    private final int unidadesValorativas;
 
     public Materia(String nombre, String codigo, int unidadesValorativas) {
         this.nombre = nombre;
@@ -10,7 +11,20 @@ public class Materia {
         this.unidadesValorativas = unidadesValorativas;
     }
 
-    public String getNombre() { return nombre; }
-    public String getCodigo() { return codigo; }
-    public int getUnidadesValorativas() { return unidadesValorativas; }
+    public String getNombre() {
+        return nombre;
+    }
+
+    public String getCodigo() {
+        return codigo;
+    }
+
+    public int getUnidadesValorativas() {
+        return unidadesValorativas;
+    }
+
+    @Override
+    public String toString() {
+        return nombre + " (" + codigo + ") - " + unidadesValorativas + " UV";
+    }
 }

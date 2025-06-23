@@ -166,8 +166,6 @@ public class UESDatabaseHelper extends SQLiteOpenHelper {
 
         return usuario;
     }
-
-
     //Registrar Materia
     public boolean insertarMateria(String nombre, String codigo, int uv) {
         SQLiteDatabase db = this.getWritableDatabase();

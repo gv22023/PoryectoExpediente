@@ -24,6 +24,10 @@
 
         <!-- Registrar RegisterActivity también -->
         <activity android:name=".ui.register.RegisterActivity" />
+        <!-- Registrar RegistrarMateriaActivity también -->
+        <activity android:name=".RegistrarMateriaActivity" />
+        <!-- Registrar VerMateriasActivity también -->
+        <activity android:name=".VerMateriasActivity" />
 
     </application>
 

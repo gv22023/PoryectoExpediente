@@ -5,11 +5,12 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
 import java.util.List;
 
 public class MateriaAdapter extends RecyclerView.Adapter<MateriaAdapter.MateriaViewHolder> {
 
-    private List<Materia> listaMaterias;
+    private final List<Materia> listaMaterias;
 
     public MateriaAdapter(List<Materia> listaMaterias) {
         this.listaMaterias = listaMaterias;
@@ -43,7 +44,7 @@ public class MateriaAdapter extends RecyclerView.Adapter<MateriaAdapter.MateriaV
             super(itemView);
             tvNombre = itemView.findViewById(R.id.tvNombreMateria);
             tvCodigo = itemView.findViewById(R.id.tvCodigoMateria);
-            tvUV = itemView.findViewById(R.id.tvUVMateria);
+            tvUV = itemView.findViewById(R.id.tvUnidadesValorativas);
         }
     }
 }

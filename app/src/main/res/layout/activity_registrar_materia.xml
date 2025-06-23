@@ -33,54 +33,58 @@
         android:id="@+id/etNombreMateria"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="100dp"
         android:layout_marginStart="20dp"
+        android:layout_marginTop="100dp"
         android:layout_marginEnd="20dp"
         android:hint="Nombre de la materia"
-        app:layout_constraintTop_toBottomOf="@+id/banner"
+        android:minHeight="48dp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/banner" />
 
     <!-- Código de materia -->
     <EditText
         android:id="@+id/etCodigoMateria"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
         android:layout_marginStart="20dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="20dp"
         android:hint="Código de la materia (ej. RED135)"
-        app:layout_constraintTop_toBottomOf="@+id/etNombreMateria"
+        android:minHeight="48dp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/etNombreMateria" />
 
     <!-- Unidades valorativas -->
     <EditText
         android:id="@+id/etUnidadesValorativas"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
         android:layout_marginStart="20dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="20dp"
         android:hint="Unidades valorativas"
         android:inputType="number"
-        app:layout_constraintTop_toBottomOf="@+id/etCodigoMateria"
+        android:minHeight="48dp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/etCodigoMateria" />
 
     <!-- Confirmar contraseña de admin -->
     <EditText
         android:id="@+id/etPasswordAdmin"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
         android:layout_marginStart="20dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="20dp"
         android:hint="Confirmar contraseña de admin"
         android:inputType="textPassword"
-        app:layout_constraintTop_toBottomOf="@+id/etUnidadesValorativas"
+        android:minHeight="48dp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/etUnidadesValorativas" />
 
     <!-- Botón Crear Materia -->
     <Button

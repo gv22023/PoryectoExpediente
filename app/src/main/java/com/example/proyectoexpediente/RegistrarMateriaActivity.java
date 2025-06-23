@@ -1,5 +1,6 @@
 package com.example.proyectoexpediente;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
@@ -11,14 +12,11 @@ import com.example.proyectoexpediente.database.UESDatabaseHelper;
 
 public class RegistrarMateriaActivity extends AppCompatActivity {
 
-    private EditText etNombreMateria;
-    private EditText etCodigoMateria;
-    private EditText etUV;
-    private EditText etClaveAdmin;
-    private Button btnCrear;
-    private Button btnRegresar;
-
+    private EditText etNombreMateria, etCodigoMateria, etUnidadesValorativas, etPasswordAdmin;
+    private Button btnCrearMateria, btnRegresarMateria;
     private UESDatabaseHelper dbHelper;
+
+    private final String CLAVE_ADMIN = "admin123";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,30 +25,31 @@ public class RegistrarMateriaActivity extends AppCompatActivity {
 
         etNombreMateria = findViewById(R.id.etNombreMateria);
         etCodigoMateria = findViewById(R.id.etCodigoMateria);
-        etUV = findViewById(R.id.etUnidadesValorativas);
-        etClaveAdmin = findViewById(R.id.etPasswordAdmin);
-        btnCrear = findViewById(R.id.btnCrearMateria);
-        btnRegresar = findViewById(R.id.btnRegresarMateria);
+        etUnidadesValorativas = findViewById(R.id.etUnidadesValorativas);
+        etPasswordAdmin = findViewById(R.id.etPasswordAdmin);
+        btnCrearMateria = findViewById(R.id.btnCrearMateria);
+        btnRegresarMateria = findViewById(R.id.btnRegresarMateria);
 
         dbHelper = new UESDatabaseHelper(this);
 
-        btnCrear.setOnClickListener(v -> crearMateria());
-        btnRegresar.setOnClickListener(v -> finish());
+        btnCrearMateria.setOnClickListener(v -> registrarMateria());
+        btnRegresarMateria.setOnClickListener(v -> finish());
     }
 
-    private void crearMateria() {
+    private void registrarMateria() {
+        Toast.makeText(this, "Función registrarMateria() llamada", Toast.LENGTH_SHORT).show();
         String nombre = etNombreMateria.getText().toString().trim();
         String codigo = etCodigoMateria.getText().toString().trim();
-        String uvStr = etUV.getText().toString().trim();
-        String clave = etClaveAdmin.getText().toString().trim();
+        String uvStr = etUnidadesValorativas.getText().toString().trim();
+        String clave = etPasswordAdmin.getText().toString().trim();
 
         if (nombre.isEmpty() || codigo.isEmpty() || uvStr.isEmpty() || clave.isEmpty()) {
             Toast.makeText(this, "Completa todos los campos", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        if (!clave.equals("admin123")) {
-            Toast.makeText(this, "Contraseña de administrador incorrecta", Toast.LENGTH_SHORT).show();
+        if (!clave.equals(CLAVE_ADMIN)) {
+            Toast.makeText(this, "Contraseña incorrecta", Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -58,23 +57,19 @@ public class RegistrarMateriaActivity extends AppCompatActivity {
         try {
             uv = Integer.parseInt(uvStr);
         } catch (NumberFormatException e) {
-            Toast.makeText(this, "UV debe ser un número válido", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "UV debe ser numérico", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        boolean resultado = dbHelper.insertarMateria(nombre, codigo, uv);
-        if (resultado) {
-            Toast.makeText(this, "Materia guardada correctamente", Toast.LENGTH_SHORT).show();
-            limpiarCampos();
-        } else {
-            Toast.makeText(this, "Error al guardar materia. Verifica si ya existe el código.", Toast.LENGTH_SHORT).show();
-        }
-    }
+        boolean insertado = dbHelper.insertarMateria(nombre, codigo, uv);
 
-    private void limpiarCampos() {
-        etNombreMateria.setText("");
-        etCodigoMateria.setText("");
-        etUV.setText("");
-        etClaveAdmin.setText("");
+        if (insertado) {
+            Toast.makeText(this, "Materia registrada", Toast.LENGTH_SHORT).show();
+            startActivity(new Intent(this, VerMateriasActivity.class));
+            finish();
+        } else {
+            Toast.makeText(this, "Error: código ya existe", Toast.LENGTH_SHORT).show();
+        }
+        Toast.makeText(this, "Llegó al final de registrarMateria (temporal)", Toast.LENGTH_LONG).show();
     }
 }
