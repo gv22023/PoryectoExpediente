@@ -8,10 +8,8 @@ import android.view.View;
 import android.view.Menu;
 import android.widget.TextView;
 
-import com.example.proyectoexpediente.database.UESDatabaseHelper;
-import com.google.android.material.snackbar.Snackbar;
-import com.google.android.material.navigation.NavigationView;
-
+import androidx.appcompat.app.AlertDialog;
+import androidx.core.view.GravityCompat;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -19,7 +17,10 @@ import androidx.navigation.ui.NavigationUI;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.proyectoexpediente.database.UESDatabaseHelper;
 import com.example.proyectoexpediente.databinding.ActivityMainBinding;
+import com.google.android.material.navigation.NavigationView;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.util.Map;
 
@@ -49,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
         DrawerLayout drawer = binding.drawerLayout;
         NavigationView navigationView = binding.navView;
 
-        // Registrar los destinos principales en la navegación
+        // Registrar destinos principales
         mAppBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.nav_home,
                 R.id.nav_editar_perfil,
@@ -63,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
 
-        //cargar nombre del usuario
+        // Cargar nombre del usuario
         SharedPreferences prefs = getSharedPreferences("SesionUsuario", MODE_PRIVATE);
         TextView tvBienvenida = binding.appBarMain.getRoot().findViewById(R.id.welcome);
         String correoUsuario = prefs.getString("correo", null);
@@ -87,6 +88,21 @@ public class MainActivity extends AppCompatActivity {
         if ("inscribir_materias".equals(destino)) {
             navController.navigate(R.id.nav_inscribir);
         }
+
+        // Manejador personalizado para navegación + logout
+        navigationView.setNavigationItemSelectedListener(item -> {
+            int id = item.getItemId();
+
+            if (id == R.id.nav_logout) {
+                mostrarDialogoCerrarSesion();
+                drawer.closeDrawer(GravityCompat.START);
+                return true;
+            }
+
+            boolean handled = NavigationUI.onNavDestinationSelected(item, navController);
+            drawer.closeDrawer(GravityCompat.START);
+            return handled;
+        });
     }
 
     @Override
@@ -100,21 +116,13 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         if (id == R.id.action_settings) {
-            // log out
-            SharedPreferences prefs = getSharedPreferences("SesionUsuario", MODE_PRIVATE);
-            prefs.edit().clear().apply(); // Limpia sesión
-
-            // redirect to login
-            Intent intent = new Intent(this, LoginActivity.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-            startActivity(intent);
-            finish();
+            // Ya no se usa logout desde aquí, pero se mantiene por si acaso
+            mostrarDialogoCerrarSesion();
             return true;
         }
 
         return super.onOptionsItemSelected(item);
     }
-
 
     @Override
     public boolean onSupportNavigateUp() {
@@ -122,4 +130,22 @@ public class MainActivity extends AppCompatActivity {
         return NavigationUI.navigateUp(navController, mAppBarConfiguration)
                 || super.onSupportNavigateUp();
     }
+
+    private void mostrarDialogoCerrarSesion() {
+        new AlertDialog.Builder(this)
+                .setTitle("Cerrar sesión")
+                .setMessage("¿Estás seguro que deseas cerrar sesión?")
+                .setPositiveButton("Sí", (dialog, which) -> {
+                    SharedPreferences prefs = getSharedPreferences("SesionUsuario", MODE_PRIVATE);
+                    prefs.edit().clear().apply();
+
+                    Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    startActivity(intent);
+                    finish();
+                })
+                .setNegativeButton("Cancelar", null)
+                .show();
+    }
 }
+

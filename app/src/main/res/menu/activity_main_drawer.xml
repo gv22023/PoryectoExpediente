@@ -22,4 +22,9 @@
             android:title="Inscribir Materias" />
 
     </group>
+
+    <item
+        android:id="@+id/nav_logout"
+        android:icon="@mipmap/ic_logout_foreground"
+        android:title="Cerrar Sesión" />
 </menu>

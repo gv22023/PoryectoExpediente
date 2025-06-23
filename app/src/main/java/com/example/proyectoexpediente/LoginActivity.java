@@ -100,7 +100,7 @@ public class LoginActivity extends AppCompatActivity {
 
                 if (email.equals("admin@ues.edu.sv")) {
                     // Enviar extra para que MainActivity abra directamente el fragmento de ingresar materias
-                    intent.putExtra("ir_a", "inscribir_materias");
+                    intent.putExtra("ir_a", "fragment_menu_principal");
                 }
 
                 startActivity(intent);
@@ -112,7 +112,7 @@ public class LoginActivity extends AppCompatActivity {
         });
 
         btnRegister.setOnClickListener(view -> {
-            startActivity(new Intent(this, RegisterActivity.class));
+            startActivity(new Intent(this, VerMateriasActivity.class));
         });
     }
 }

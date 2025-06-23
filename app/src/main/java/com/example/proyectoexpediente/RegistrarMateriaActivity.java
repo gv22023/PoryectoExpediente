@@ -6,6 +6,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.proyectoexpediente.database.UESDatabaseHelper;
@@ -15,7 +16,6 @@ public class RegistrarMateriaActivity extends AppCompatActivity {
     private EditText etNombreMateria, etCodigoMateria, etUnidadesValorativas;
     private Button btnCrearMateria, btnRegresarMateria;
     private UESDatabaseHelper dbHelper;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,8 +30,17 @@ public class RegistrarMateriaActivity extends AppCompatActivity {
 
         dbHelper = new UESDatabaseHelper(this);
 
-        btnCrearMateria.setOnClickListener(v -> registrarMateria());
+        btnCrearMateria.setOnClickListener(v -> mostrarDialogoConfirmacion());
         btnRegresarMateria.setOnClickListener(v -> finish());
+    }
+
+    private void mostrarDialogoConfirmacion() {
+        new AlertDialog.Builder(this)
+                .setTitle("Confirmación")
+                .setMessage("¿Está seguro que desea crear esta materia?")
+                .setPositiveButton("Sí", (dialog, which) -> registrarMateria())
+                .setNegativeButton("Cancelar", null)
+                .show();
     }
 
     private void registrarMateria() {
@@ -62,6 +71,7 @@ public class RegistrarMateriaActivity extends AppCompatActivity {
         } else {
             Toast.makeText(this, "Error: código ya existe", Toast.LENGTH_SHORT).show();
         }
+
         Toast.makeText(this, "Llegó al final de registrarMateria (temporal)", Toast.LENGTH_LONG).show();
     }
 }
