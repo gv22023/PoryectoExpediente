@@ -12,11 +12,10 @@ import com.example.proyectoexpediente.database.UESDatabaseHelper;
 
 public class RegistrarMateriaActivity extends AppCompatActivity {
 
-    private EditText etNombreMateria, etCodigoMateria, etUnidadesValorativas, etPasswordAdmin;
+    private EditText etNombreMateria, etCodigoMateria, etUnidadesValorativas;
     private Button btnCrearMateria, btnRegresarMateria;
     private UESDatabaseHelper dbHelper;
 
-    private final String CLAVE_ADMIN = "admin123";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,7 +25,6 @@ public class RegistrarMateriaActivity extends AppCompatActivity {
         etNombreMateria = findViewById(R.id.etNombreMateria);
         etCodigoMateria = findViewById(R.id.etCodigoMateria);
         etUnidadesValorativas = findViewById(R.id.etUnidadesValorativas);
-        etPasswordAdmin = findViewById(R.id.etPasswordAdmin);
         btnCrearMateria = findViewById(R.id.btnCrearMateria);
         btnRegresarMateria = findViewById(R.id.btnRegresarMateria);
 
@@ -41,15 +39,9 @@ public class RegistrarMateriaActivity extends AppCompatActivity {
         String nombre = etNombreMateria.getText().toString().trim();
         String codigo = etCodigoMateria.getText().toString().trim();
         String uvStr = etUnidadesValorativas.getText().toString().trim();
-        String clave = etPasswordAdmin.getText().toString().trim();
 
-        if (nombre.isEmpty() || codigo.isEmpty() || uvStr.isEmpty() || clave.isEmpty()) {
+        if (nombre.isEmpty() || codigo.isEmpty() || uvStr.isEmpty()) {
             Toast.makeText(this, "Completa todos los campos", Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        if (!clave.equals(CLAVE_ADMIN)) {
-            Toast.makeText(this, "Contraseña incorrecta", Toast.LENGTH_SHORT).show();
             return;
         }
 

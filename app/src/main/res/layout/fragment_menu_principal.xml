@@ -19,45 +19,41 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/btnVerExpediente"
+    <LinearLayout
+        android:id="@+id/contenedorBotones"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="56dp"
+        android:orientation="vertical"
         android:layout_marginTop="396dp"
-        android:layout_marginEnd="56dp"
-        android:background="@drawable/button_redondeado"
-        android:text="Ver Expediente"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/btnEditarPerfil"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
         android:layout_marginStart="56dp"
-        android:layout_marginTop="16dp"
         android:layout_marginEnd="56dp"
-        android:background="@drawable/button_redondeado"
-        android:text="Editar Perfil"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/btnVerExpediente" />
+        app:layout_constraintEnd_toEndOf="parent">
 
-    <Button
-        android:id="@+id/btnInscribirMaterias"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="56dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="56dp"
-        android:background="@drawable/button_redondeado"
-        android:text="Inscribir Materias"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/btnEditarPerfil" />
+        <Button
+            android:id="@+id/btnVerExpediente"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Ver Expediente"
+            android:background="@drawable/button_redondeado" />
+
+        <Button
+            android:id="@+id/btnEditarPerfil"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Editar Perfil"
+            android:background="@drawable/button_redondeado" />
+
+        <Button
+            android:id="@+id/btnInscribirMaterias"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Inscribir Materias"
+            android:background="@drawable/button_redondeado" />
+    </LinearLayout>
 
     <View
         android:id="@+id/view"

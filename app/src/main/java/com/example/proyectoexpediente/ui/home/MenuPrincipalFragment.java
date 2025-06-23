@@ -1,6 +1,8 @@
 package com.example.proyectoexpediente.ui.home;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -15,7 +17,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.example.proyectoexpediente.R;
-import com.example.proyectoexpediente.RegistrarMateriaActivity;
+import com.example.proyectoexpediente.VerMateriasActivity;
 
 public class MenuPrincipalFragment extends Fragment {
 
@@ -34,6 +36,19 @@ public class MenuPrincipalFragment extends Fragment {
         Button btnEditarPerfil = view.findViewById(R.id.btnEditarPerfil);
         Button btnInscribirMaterias = view.findViewById(R.id.btnInscribirMaterias);
 
+        // Mostrar botones según el tipo de usuario
+        SharedPreferences prefs = requireContext().getSharedPreferences("SesionUsuario", Context.MODE_PRIVATE);
+        String tipoUsuario = prefs.getString("tipo_usuario", "usuario");
+
+        if ("admin".equals(tipoUsuario)) {
+            btnInscribirMaterias.setVisibility(View.VISIBLE);
+            btnVerExpediente.setVisibility(View.GONE);
+        } else {
+            btnInscribirMaterias.setVisibility(View.GONE);
+            btnVerExpediente.setVisibility(View.VISIBLE);
+        }
+
+
         btnVerExpediente.setOnClickListener(v -> {
             NavController navController = Navigation.findNavController(v);
             navController.navigate(R.id.nav_ver_expediente);
@@ -45,7 +60,7 @@ public class MenuPrincipalFragment extends Fragment {
         });
 
         btnInscribirMaterias.setOnClickListener(v -> {
-            Intent intent = new Intent(getActivity(), RegistrarMateriaActivity.class);
+            Intent intent = new Intent(getActivity(), VerMateriasActivity.class);
             startActivity(intent);
         });
     }

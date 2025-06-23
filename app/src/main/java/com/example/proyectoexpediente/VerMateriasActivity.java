@@ -1,5 +1,6 @@
 package com.example.proyectoexpediente;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -19,7 +20,7 @@ public class VerMateriasActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.fragment_ver_materias);
+        setContentView(R.layout.ver_materias);
 
         recyclerView = findViewById(R.id.recyclerMaterias);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -29,5 +30,13 @@ public class VerMateriasActivity extends AppCompatActivity {
 
         adapter = new MateriaAdapter(lista);
         recyclerView.setAdapter(adapter);
+
+        findViewById(R.id.btnIrRegistrarMateria).setOnClickListener(v -> {
+            startActivity(new Intent(this, RegistrarMateriaActivity.class));
+        });
+
+        findViewById(R.id.btnRegresar).setOnClickListener(v -> {
+            finish();
+        });
     }
 }
