@@ -19,9 +19,9 @@
 
     <fragment
         android:id="@+id/nav_ver_expediente"
-        android:name="com.example.proyectoexpediente.ui.expediente.VerExpedienteFragment"
+        android:name="com.example.proyectoexpediente.MateriasInscritasFragment"
         android:label="Ver Expediente"
-        tools:layout="@layout/fragment_ver_expediente" />
+        tools:layout="@layout/fragment_materias_inscritas" />
 
     <fragment
         android:id="@+id/nav_inscribir"
