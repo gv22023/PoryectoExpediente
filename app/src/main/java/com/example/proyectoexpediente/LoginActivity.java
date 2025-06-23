@@ -12,14 +12,14 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 
-import com.example.proyectoexpediente.database.UESDatabaseHelper;
+import com.example.proyectoexpediente.database.DataService;
 import com.example.proyectoexpediente.ui.register.RegisterActivity;
 
 public class LoginActivity extends AppCompatActivity {
 
     private EditText etEmail, etPassword;
     private Button btnLogin, btnRegister;
-    private UESDatabaseHelper dbHelper;
+    private DataService dbHelper;
     private Switch selectModo;
 
     @Override
@@ -48,7 +48,7 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         // Inicializar vistas
-        dbHelper = new UESDatabaseHelper(this);
+        dbHelper = new DataService(this);
         etEmail = findViewById(R.id.etEmail);
         etPassword = findViewById(R.id.etPassword);
         btnLogin = findViewById(R.id.btnLogin);

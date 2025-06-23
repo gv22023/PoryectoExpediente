@@ -10,14 +10,14 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.proyectoexpediente.R;
-import com.example.proyectoexpediente.database.UESDatabaseHelper;
+import com.example.proyectoexpediente.database.DataService;
 import com.example.proyectoexpediente.LoginActivity;
 
 public class RegisterActivity extends AppCompatActivity {
 
     EditText etNombre, etEmail, etPassword;
     Button btnCrearCuenta, btnRegresar;
-    UESDatabaseHelper dbHelper;
+    DataService dbHelper;
     EditText etConfirmPassword;
 
     @Override
@@ -32,7 +32,7 @@ public class RegisterActivity extends AppCompatActivity {
         btnCrearCuenta = findViewById(R.id.btnCrearCuenta);
         btnRegresar = findViewById(R.id.btnRegresar);
 
-        dbHelper = new UESDatabaseHelper(this);
+        dbHelper = new DataService(this);
 
         btnCrearCuenta.setOnClickListener(v -> {
             String nombre = etNombre.getText().toString().trim();

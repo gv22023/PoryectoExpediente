@@ -9,13 +9,14 @@ import android.widget.Toast;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.proyectoexpediente.database.UESDatabaseHelper;
+import com.example.proyectoexpediente.database.DataService;
+import com.example.proyectoexpediente.ui.materia.VerMateriasActivity;
 
 public class RegistrarMateriaActivity extends AppCompatActivity {
 
     private EditText etNombreMateria, etCodigoMateria, etUnidadesValorativas;
     private Button btnCrearMateria, btnRegresarMateria;
-    private UESDatabaseHelper dbHelper;
+    private DataService dbHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,7 +29,7 @@ public class RegistrarMateriaActivity extends AppCompatActivity {
         btnCrearMateria = findViewById(R.id.btnCrearMateria);
         btnRegresarMateria = findViewById(R.id.btnRegresarMateria);
 
-        dbHelper = new UESDatabaseHelper(this);
+        dbHelper = new DataService(this);
 
         btnCrearMateria.setOnClickListener(v -> mostrarDialogoConfirmacion());
         btnRegresarMateria.setOnClickListener(v -> finish());

@@ -17,7 +17,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.example.proyectoexpediente.R;
-import com.example.proyectoexpediente.VerMateriasActivity;
+import com.example.proyectoexpediente.ui.materia.VerMateriasActivity;
 
 public class MenuPrincipalFragment extends Fragment {
 

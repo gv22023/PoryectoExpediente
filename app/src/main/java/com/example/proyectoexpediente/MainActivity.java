@@ -7,21 +7,18 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.Menu;
 import android.widget.TextView;
-
 import androidx.appcompat.app.AlertDialog;
 import androidx.core.view.GravityCompat;
+import com.example.proyectoexpediente.database.DataService;
+import com.google.android.material.snackbar.Snackbar;
+import com.google.android.material.navigation.NavigationView;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
-
-import com.example.proyectoexpediente.database.UESDatabaseHelper;
 import com.example.proyectoexpediente.databinding.ActivityMainBinding;
-import com.google.android.material.navigation.NavigationView;
-import com.google.android.material.snackbar.Snackbar;
-
 import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
@@ -70,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
         String correoUsuario = prefs.getString("correo", null);
 
         if (correoUsuario != null) {
-            UESDatabaseHelper dbHelper = new UESDatabaseHelper(this);
+            DataService dbHelper = new DataService(this);
             Map<String, String> usuario = dbHelper.obtenerUsuario(correoUsuario);
 
             String nombreUsuario = usuario.get("nombre");

@@ -1,10 +1,14 @@
-package com.example.proyectoexpediente;
+package com.example.proyectoexpediente.ui.materia;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.proyectoexpediente.R;
+import com.example.proyectoexpediente.models.Materia;
 
 import java.util.List;
 
@@ -29,7 +33,7 @@ public class MateriaAdapter extends RecyclerView.Adapter<MateriaAdapter.MateriaV
         Materia materia = listaMaterias.get(position);
         holder.tvNombre.setText("Nombre: " + materia.getNombre());
         holder.tvCodigo.setText("Código: " + materia.getCodigo());
-        holder.tvUV.setText("UV: " + materia.getUnidadesValorativas());
+        holder.tvUV.setText("UV: " + materia.getUv());
     }
 
     @Override

@@ -23,7 +23,8 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.example.proyectoexpediente.R;
-import com.example.proyectoexpediente.database.UESDatabaseHelper;
+import com.example.proyectoexpediente.database.DataService;
+import com.example.proyectoexpediente.database.DataService;
 import com.example.proyectoexpediente.utils.Utils;
 
 import java.util.Map;
@@ -37,7 +38,7 @@ public class EditarPerfilFragment extends Fragment {
     private Button btnGuardar, btnSeleccionarImagen;
     private Uri selectedImageUri = null;
 
-    private UESDatabaseHelper dbHelper;
+    private DataService dbHelper;
     private String correoUsuario;
 
     @Override
@@ -58,7 +59,7 @@ public class EditarPerfilFragment extends Fragment {
         btnGuardar = view.findViewById(R.id.btnGuardar);
         btnSeleccionarImagen = view.findViewById(R.id.btnSeleccionarImagen);
 
-        dbHelper = new UESDatabaseHelper(requireContext());
+        dbHelper = new DataService(requireContext());
 
         // obtener correo del usuario desde SharedPreferences
         SharedPreferences prefs = requireActivity().getSharedPreferences("SesionUsuario", Context.MODE_PRIVATE);
