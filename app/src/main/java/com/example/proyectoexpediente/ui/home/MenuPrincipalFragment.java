@@ -1,5 +1,6 @@
 package com.example.proyectoexpediente.ui.home;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -14,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.example.proyectoexpediente.R;
+import com.example.proyectoexpediente.RegistrarMateriaActivity;
 
 public class MenuPrincipalFragment extends Fragment {
 
@@ -43,8 +45,8 @@ public class MenuPrincipalFragment extends Fragment {
         });
 
         btnInscribirMaterias.setOnClickListener(v -> {
-            NavController navController = Navigation.findNavController(v);
-            navController.navigate(R.id.nav_inscribir);
+            Intent intent = new Intent(getActivity(), RegistrarMateriaActivity.class);
+            startActivity(intent);
         });
     }
 }
